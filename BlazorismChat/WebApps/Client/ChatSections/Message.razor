@@ -1,0 +1,24 @@
+
+@if(ByMe)
+{
+    <div class="row no-gutters">
+    <div class="col-md-3 offset-md-9">
+        <div class="chat-bubble chat-bubble--right">
+            Hello dude!
+        </div>
+    </div>
+</div>
+} else{
+<div class="row no-gutters">
+    <div class="col-md-3">
+        <div class="chat-bubble chat-bubble--left">
+            Hello dude!
+        </div>
+    </div>
+</div>
+}
+
+@code {
+    [Parameter]
+    public bool ByMe { get; set; } = true;
+}

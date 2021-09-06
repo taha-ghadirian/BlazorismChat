@@ -1,0 +1,7 @@
+<div class="message-list">
+                @for (var i = 0; i < 100; i++)
+                {
+                    Random rnd = new Random();
+                    <Message ByMe="rnd.Next(1,100) >= 50 ? true : false"/>
+                }
+            </div>
