@@ -24,7 +24,7 @@ jobs:
         run: dotnet build -c Release
 
       - name: Dotnet Publish
-        working-directory: WebApps/Server
+        working-directory: BlazorismChat/WebApps/Server
         run: dotnet publish -c Release
 
       - name: Deploy to Netlify
