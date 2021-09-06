@@ -1,0 +1,71 @@
+hr {
+  margin: 5px auto;
+  width: 60%;
+}
+
+.right-top-radius {
+  border-top-right-radius: 12px;
+}
+
+.right-bottom-radius {
+  border-bottom-right-radius: 12px;
+}
+
+.left-top-radius, .right-panel .description-tray {
+  border-top-left-radius: 12px;
+}
+
+.left-bottom-radius {
+  border-bottom-left-radius: 12px;
+}
+
+.all-radius {
+  border-radius: 12px;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.container {
+  background-color: #fafafa;
+  margin-top: 38px;
+}
+
+.right-panel .description-tray {
+  background-color: #eee;
+  text-align: center;
+}
+
+.social-media-item {
+  padding: 10px 15px;
+  display: flex;
+  vertical-align: baseline;
+  background-color: #fafafa;
+  transition: .3s ease;
+}
+
+.social-media-item .text {
+  margin-left: 12px;
+  width: 70%;
+}
+
+.social-media-item .text h6 {
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.social-media-item:hover {
+  background: #74b9ff;
+  cursor: pointer;
+}
+
+.social-media-item:hover h6 {
+  color: #fff !important;
+}
+/*# sourceMappingURL=login.css.map */

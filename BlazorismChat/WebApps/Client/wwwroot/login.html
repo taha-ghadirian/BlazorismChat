@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Blazorism Chat</title>
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+	<link rel='stylesheet'
+	href='https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css'>
+	
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="/css/login.css">
+
+</head>
+
+<body>
+	<!-- partial:index.partial.html -->
+	<div class="container my-xl-5">
+		<div class="row no-gutters">
+			<div class="col-md-4 border-right right-panel">
+				<div class="description-tray p-2">
+					<h3>Login</h3>
+					<hr>
+				</div>
+				<div class="social-media-tray">
+					<a href="#" class="social-media-item">
+						<img class="round-image"
+							src="/images/github.png" alt="Github Logo">
+						<div class="text">
+							<h6>Github Login</h6>
+						</div>
+					</a>
+					<hr>
+					<a href="#" class="social-media-item">
+						<img class="round-image"
+							src="/images/telegram.png" alt="Telegram Logo">
+						<div class="text">
+							<h6>Telegram Login</h6>
+						</div>
+					</a>
+					<hr>
+					<a href="#" class="social-media-item left-bottom-radius">
+						<img class="round-image"
+							src="https://www.pinclipart.com/picdir/middle/447-4477875_mail-svg-icon-round-gmail-logo-png-clipart.png" alt="Gmail Logo">
+						<div class="text">
+							<h6>Gmail Login</h6>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="login-form col-md-8 m-5 mx-auto">
+					<img src="images/login-vector.svg" alt="Login vector" class="img-fluid" height="400" width="400">
+					<hr>
+					<form action="#" method="post">
+						<div class="form-group">
+							<label for="Username">Username</label>
+							<input type="text" class="form-control" id="Username"
+								placeholder="Enter Username">
+						</div>
+						<div class="form-group">
+							<label for="Password">Password</label>
+							<input type="password" class="form-control" id="Password"
+								placeholder="Enter Password">
+						</div>
+						<div class="form-group">
+							<input type="submit" value="Login" class="btn btn-primary">
+							<a href="#" class="btn btn-link btn-sm">Forgot Password?</a> | 
+							<button type="button" class="btn btn-link btn-sm" id="RegisterBtn">Create Account</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- partial -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+	<script src="/js/login.js"></script>
+
+</body>
+
+</html>

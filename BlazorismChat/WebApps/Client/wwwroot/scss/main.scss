@@ -1,0 +1,35 @@
+@import "variables";
+@import "scroll";
+
+body {
+    @extend .scroll;
+
+    background-color: lighten($color: $color-primary-dark, $amount: 10%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+
+.container {
+    background: $color-white;
+    padding: 0;
+    border-radius: $form-radius-value;
+}
+
+img,i {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.profile-image,
+.round-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 40px;
+}

@@ -1,0 +1,49 @@
+@import "utilities";
+
+a {
+    text-decoration: none;
+    color: #000;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.container {
+    background-color: $color-secondary-light;
+    margin-top: 38px;
+}
+
+.right-panel .description-tray {
+    @extend .left-top-radius;
+
+    background-color: $color-secondary;
+    text-align: center;
+}
+
+.social-media-item {
+    padding: 10px 15px;
+    display: flex;
+    vertical-align: baseline;
+    background-color: $color-secondary-light;
+    transition: .3s ease;
+
+    .text {
+        margin-left: 12px;
+        width: 70%;
+
+        h6 {
+            margin-top: 16px;
+            margin-bottom: 0;
+        }
+    }
+
+    &:hover {
+        background: $color-primary;
+        cursor: pointer;
+
+        h6 {
+            color: $color-white !important;
+        }
+    }
+}

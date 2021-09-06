@@ -1,0 +1,26 @@
+@import "variables";
+
+hr {
+    margin: 5px auto;
+    width: 60%;
+}
+
+.right-top-radius {
+    border-top-right-radius: $form-radius-value;
+}
+
+.right-bottom-radius {
+    border-bottom-right-radius: $form-radius-value;
+}
+
+.left-top-radius {
+    border-top-left-radius: $form-radius-value;
+}
+
+.left-bottom-radius {
+    border-bottom-left-radius: $form-radius-value;
+}
+
+.all-radius {
+    border-radius: $form-radius-value;
+}

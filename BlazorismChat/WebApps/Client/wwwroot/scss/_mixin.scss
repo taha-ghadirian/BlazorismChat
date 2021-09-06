@@ -1,0 +1,4 @@
+@mixin full-height($value) {
+    min-height: $value;
+    max-height: $value;
+}

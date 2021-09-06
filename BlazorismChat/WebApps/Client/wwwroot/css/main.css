@@ -1,0 +1,58 @@
+.scroll::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.scroll::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #3498db;
+  background-image: -webkit-linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.589) 50%, transparent, transparent);
+}
+
+.scroll, body {
+  overflow: auto;
+}
+
+.scroll::-webkit-scrollbar, body::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+.scroll::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.scroll::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #4a69d4;
+  background-image: -webkit-linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.589) 50%, transparent, transparent);
+}
+
+body {
+  background-color: #738bde;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+.container {
+  background: #fff;
+  padding: 0;
+  border-radius: 12px;
+}
+
+img, i {
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.profile-image,
+.round-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 40px;
+}
+/*# sourceMappingURL=main.css.map */
