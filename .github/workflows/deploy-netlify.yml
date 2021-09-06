@@ -1,0 +1,37 @@
+name: DEPLOY-NETLIFY
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: CI/CD
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.100-preview.7.21379.14
+
+      - name: Dotnet Build
+        run: dotnet build -c Release
+
+      - name: Dotnet Publish
+        working-directory: WebApps/Server
+        run: dotnet publish -c Release
+
+      - name: Deploy to Netlify
+        id: netlify
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --json -d WebApps/Server/bin/Release/net6.0/publish/wwwroot --prod
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
