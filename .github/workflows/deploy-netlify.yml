@@ -31,7 +31,7 @@ jobs:
         id: netlify
         uses: netlify/actions/cli@master
         with:
-          args: deploy --json -d WebApps/Server/bin/Release/net6.0/publish/wwwroot --prod
+          args: deploy --json -d BlazorismChat/WebApps/Server/bin/Release/net6.0/publish/wwwroot --prod
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
