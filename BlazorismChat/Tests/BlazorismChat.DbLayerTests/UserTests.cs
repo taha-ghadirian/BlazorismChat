@@ -1,4 +1,3 @@
-using AutoFixture.Xunit2;
 using BlazorismChat.DbLayer.Entities.Users;
 using Xunit;
 using FluentAssertions;
