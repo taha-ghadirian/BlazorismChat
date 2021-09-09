@@ -15,11 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorismChat.ClientTests",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layers", "Layers", "{23A2A4B7-1AA8-4AAA-8608-AC29E82FCC87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorismChat.DbLayer", "BlazorismChat\Layers\BlazorismChat.DbLayer\BlazorismChat.DbLayer.csproj", "{5D94E9D2-F204-4134-9F99-7D8DA1F9A0BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorismChat.DbLayer", "BlazorismChat\Layers\BlazorismChat.DbLayer\BlazorismChat.DbLayer.csproj", "{5D94E9D2-F204-4134-9F99-7D8DA1F9A0BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorismChat.ClientLibraries", "BlazorismChat\Layers\BlazorismChat.ClientLibraries\BlazorismChat.ClientLibraries.csproj", "{CFFCC361-8E94-438A-A9F7-FE5407B8F604}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorismChat.ClientLibraries", "BlazorismChat\Layers\BlazorismChat.ClientLibraries\BlazorismChat.ClientLibraries.csproj", "{CFFCC361-8E94-438A-A9F7-FE5407B8F604}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorismChat.Core", "BlazorismChat\Layers\BlazorismChat.Core\BlazorismChat.Core.csproj", "{5D8F18B4-0C84-4522-8F0E-304D80D5E112}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorismChat.Core", "BlazorismChat\Layers\BlazorismChat.Core\BlazorismChat.Core.csproj", "{5D8F18B4-0C84-4522-8F0E-304D80D5E112}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorismChat.DbLayerTests", "BlazorismChat\Tests\BlazorismChat.DbLayerTests\BlazorismChat.DbLayerTests.csproj", "{705FC075-BF46-4BDD-8716-EE68530C7B1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{5D8F18B4-0C84-4522-8F0E-304D80D5E112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D8F18B4-0C84-4522-8F0E-304D80D5E112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D8F18B4-0C84-4522-8F0E-304D80D5E112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{705FC075-BF46-4BDD-8716-EE68530C7B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705FC075-BF46-4BDD-8716-EE68530C7B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705FC075-BF46-4BDD-8716-EE68530C7B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705FC075-BF46-4BDD-8716-EE68530C7B1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{5D94E9D2-F204-4134-9F99-7D8DA1F9A0BB} = {23A2A4B7-1AA8-4AAA-8608-AC29E82FCC87}
 		{CFFCC361-8E94-438A-A9F7-FE5407B8F604} = {23A2A4B7-1AA8-4AAA-8608-AC29E82FCC87}
 		{5D8F18B4-0C84-4522-8F0E-304D80D5E112} = {23A2A4B7-1AA8-4AAA-8608-AC29E82FCC87}
+		{705FC075-BF46-4BDD-8716-EE68530C7B1B} = {E1FD4E53-922B-4688-98CB-AA2E421C987E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {67C33110-0E9F-4755-95E0-5B13740AC95A}

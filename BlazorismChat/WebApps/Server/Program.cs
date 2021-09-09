@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.ResponseCompression;
+﻿using BlazorismChat.DbLayer.DbContexts;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Description = "Docs for my API", Version = "v1" });
+});
+
+// Add EF Database factory  
+builder.Services.AddDbContext<BlazzingChatDbContext>(p =>
+{
+    p.UseSqlServer("data source=.; initial catalog=YBlazorismChat; user id=sa; password=12345; multipleActiveResultSets=true;");
 });
 
 var app = builder.Build();
