@@ -16,8 +16,10 @@ public static class TestContextExtensions
     {
         context.Services.AddDbContext<BlazorismChatDbContext>(p =>
         {
-            p.UseInMemoryDatabase(NameGenerator.GenerateUniqueCode());
-            //p.UseSqlServer(@"Server=.;Database=BlazorismChatDbTests;Trusted_Connection=True;");
+            // p.UseInMemoryDatabase(NameGenerator.GenerateUniqueCode());
+            // Get connection string from envirement variables
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING__TEST") ?? "";
+            p.UseSqlServer(connectionString);
         });
 
         context.Services.AddTransient<IUserService, UserService>();

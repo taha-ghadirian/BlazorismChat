@@ -11,6 +11,9 @@ on:
     branches:
       - master
 
+env:
+  CONNECTION_STRING__TEST: "data source=.; initial catalog=Test; user id=sa; password=yourStrong(!)Password; multipleActiveResultSets=true;"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +26,16 @@ jobs:
         with:
           dotnet-version: '6.0.x'
           include-prerelease: true
+
+      - name: Install SqlServer 💾
+        run: |
+          docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
       
+      - name: Sleep for 20 seconds 🕛 (For run Sql Server correctly)
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '20s'
+
       - name: Restore Dependensies 📦
         run: dotnet restore
 
