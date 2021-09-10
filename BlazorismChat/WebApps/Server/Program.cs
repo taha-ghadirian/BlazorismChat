@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Add EF Database factory  
-builder.Services.AddDbContext<BlazzingChatDbContext>(p =>
+builder.Services.AddDbContext<BlazorismChatDbContext>(p =>
 {
     p.UseSqlServer("data source=.; initial catalog=YBlazorismChat; user id=sa; password=12345; multipleActiveResultSets=true;");
 });
