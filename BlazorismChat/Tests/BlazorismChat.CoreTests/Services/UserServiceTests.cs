@@ -35,12 +35,13 @@ public class UserServicesTests : TestContext
     #region Get User Tests
 
     [Fact]
-    public void GetAllUsers_Should_Return2_Users()
+    public async void GetAllUsers_Should_Return2_Users()
     {
         // Arrange
-        var users = _userService.GetAllUsers();
+        var users = await _userService.GetAllUsers();
 
         // Asserts
+        users.Should().HaveCount(2);
     }
 
     [Theory]
@@ -229,6 +230,9 @@ public class UserServicesTests : TestContext
         realCount.Should().Be(count);
         realUser.Should().NotBeNull();
         realUser.IsDeleted.Should().BeTrue();
+
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
     }
 
     [Theory, UserAutoData]
@@ -251,6 +255,9 @@ public class UserServicesTests : TestContext
         countAfter.Should().Be(count - 1);
         realCount.Should().Be(count - 1);
         realUser.Should().BeNull();
+
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
     }
 
     [Theory, UserAutoData]
@@ -317,6 +324,9 @@ public class UserServicesTests : TestContext
         userFromDb.Password.Should().NotBe(currentPassword).And.NotBe(PasswordHelper.EncodePasswordMd5(currentPassword));
         userFromDb.IdentityCode.Should().NotBeEquivalentTo(identityCode);
         userFromDb.ActiveCode.Should().NotBeEquivalentTo(activeCode);
+
+        // Clean up
+        await _userService.DeleteUser(createdUser, true);
     }
 
     [Theory, UserAutoData]
@@ -343,6 +353,9 @@ public class UserServicesTests : TestContext
         // Assert
         updated.Should().BeFalse();
         userFromDb.Password.Should().Be(currentPassword);
+
+        // CleanUp
+        await _userService.DeleteUser(createdUser, true);
     }
 
     [Theory, UserAutoData]
@@ -359,6 +372,9 @@ public class UserServicesTests : TestContext
         // Assert
         updated.Should().BeFalse();
         userFromDb.Password.Should().Be(currentPassword);
+
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
     }
 
     [Fact]
