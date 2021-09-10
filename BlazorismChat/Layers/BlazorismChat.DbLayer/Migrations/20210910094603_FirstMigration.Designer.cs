@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlazorismChat.DbLayer.Migrations
 {
-    [DbContext(typeof(BlazzingChatDbContext))]
-    [Migration("20210909140249_FirstMigration")]
+    [DbContext(typeof(BlazorismChatDbContext))]
+    [Migration("20210910094603_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

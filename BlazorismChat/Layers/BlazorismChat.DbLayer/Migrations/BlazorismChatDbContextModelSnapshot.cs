@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlazorismChat.DbLayer.Migrations
 {
-    [DbContext(typeof(BlazzingChatDbContext))]
-    partial class BlazzingChatDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BlazorismChatDbContext))]
+    partial class BlazorismChatDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

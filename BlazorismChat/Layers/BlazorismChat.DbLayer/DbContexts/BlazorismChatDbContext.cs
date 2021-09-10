@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazorismChat.DbLayer.DbContexts;
 
-public class BlazzingChatDbContext : DbContext
+public class BlazorismChatDbContext : DbContext
 {
-    public BlazzingChatDbContext(DbContextOptions<BlazzingChatDbContext> options) : base(options)
+    public BlazorismChatDbContext(DbContextOptions<BlazorismChatDbContext> options) : base(options)
     {
 
     }
