@@ -16,8 +16,4 @@
     <ProjectReference Include="..\BlazorismChat.DbLayer\BlazorismChat.DbLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ServerServices\" />
-  </ItemGroup>
-
 </Project>
