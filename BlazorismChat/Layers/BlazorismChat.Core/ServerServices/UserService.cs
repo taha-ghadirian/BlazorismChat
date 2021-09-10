@@ -16,11 +16,21 @@ public class UserService : IUserService
         _dbContext = dbContext;
     }
 
-    public async Task<User> CreateUser(User user)
+    public async Task<User?> CreateUser(User user)
     {
-        var result = await _dbContext.Users.AddAsync(user);
-        await _dbContext.SaveChangesAsync();
-        return result.Entity;
+        try
+        {
+            if(await IsUsernameExists(user.UserName) || await IsEmailExists(user.Email))
+                return null;
+
+            var result = await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
+            return result.Entity;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public async Task<bool> DeleteUser(User user, bool fullyDelete = false)
@@ -72,8 +82,8 @@ public class UserService : IUserService
     public async Task<User?> GetUserById(int userId)
     {
         var user = await _dbContext.Users.FindAsync(userId);
-        
-        if(user == null)
+
+        if (user == null)
             return null;
 
         return user.IsDeleted ? null : user;
@@ -101,26 +111,30 @@ public class UserService : IUserService
 
     public async Task<User?> LoginUser(string username, string password)
     {
-        if (!await IsUsernameExists(username))
-            return null;
-
         var encPass = PasswordHelper.EncodePasswordMd5(password);
         return await _dbContext.Users.FirstOrDefaultAsync(x => x.FixedUserName == TextFixer.FixUserName(username) && x.Password == encPass);
     }
 
     public async Task<User?> RegisterUser(User user)
     {
-        if (await IsUsernameExists(user.UserName) || await IsEmailExists(user.Email))
-            return null;
+        try
+        {
+            if (await IsUsernameExists(user.UserName) || await IsEmailExists(user.Email))
+                return null;
 
-        user.Password = PasswordHelper.EncodePasswordMd5(user.Password);
+            user.Password = PasswordHelper.EncodePasswordMd5(user.Password);
 
 #if DEBUG
-        user.IsEmailConfirmed = true;
-        user.IsPhoneNumberConfirmed = true;
+            user.IsEmailConfirmed = true;
+            user.IsPhoneNumberConfirmed = true;
 #endif
 
-        return await CreateUser(user);
+            return await CreateUser(user);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public async Task<User?> UpdateUser(User user, bool updateSecurityKey = false)

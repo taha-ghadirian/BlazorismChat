@@ -13,7 +13,7 @@ public interface IUserService
     Task<User?> GetUserByEmail(string email);
     Task<User?> GetUserById(int userId);
 
-    Task<User> CreateUser(User user);
+    Task<User?> CreateUser(User user);
     Task<User?> UpdateUser(User user, bool updateSecurityKey = false);
     Task<bool> DeleteUser(User user, bool fullyDelete = false);
     Task<bool> DeleteUser(int userId, bool fullyDelete = false);

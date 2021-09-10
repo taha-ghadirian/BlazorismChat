@@ -94,6 +94,8 @@ public class UserServicesTests : TestContext
 
     #endregion
 
+#region Create User Tests
+
     [Theory, UserAutoData]
     public async void CreateUser_Should_Return_User(User user)
     {
@@ -112,6 +114,35 @@ public class UserServicesTests : TestContext
         // Cleanup
         await _userService.DeleteUser(createdUser, true);
     }
+
+    [Theory, UserAutoData]
+    public async void CreateUser_Should_BeNull_When_User_Exists(User user)
+    {
+        // Arrange
+        user.UserName = "test1";
+        var createdUser = await _userService.CreateUser(user);
+
+        // Assert
+        createdUser.Should().BeNull();
+
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
+
+        //------------------
+
+        // Arrange
+        user.Email = "test1@gmail.com";
+        user.UserName = "Random User";
+        createdUser = await _userService.CreateUser(user);
+
+        // Assert
+        createdUser.Should().BeNull();
+
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
+    }
+
+#endregion
 
     #region Update Tests
 
@@ -385,6 +416,147 @@ public class UserServicesTests : TestContext
 
         // Assert
         updated.Should().BeFalse();
+    }
+
+    #endregion
+
+    # region Login Tests
+
+    [Theory, UserAutoData]
+    public async void Login_WithValidUser_Should_Return_True(User user)
+    {
+        // Arrange
+        var password = "pass";
+        user.Password = password;
+        var createdUser = await _userService.RegisterUser(user);
+
+        // Act
+        var loggedIn = await _userService.LoginUser(user.UserName, password);
+
+        // Assert
+        loggedIn.Should().NotBeNull().And.BeOfType<User>().And.BeEquivalentTo(createdUser);
+
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
+    }
+
+    [Theory, UserAutoData]
+    public async void Login_WithInvalidPassword_Should_Return_False(User user)
+    {
+        // Arrange
+        var password = "pass";
+        user.Password = password;
+        var createdUser = await _userService.RegisterUser(user);
+
+        // Act
+        var loggedIn = await _userService.LoginUser(user.UserName, password + "1");
+
+        // Assert
+        loggedIn.Should().BeNull();
+
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
+    }
+
+    [Theory, UserAutoData]
+    public async void Login_WithInvalidUserName_Should_Return_False(User user)
+    {
+        // Arrange
+        var password = "pass";
+        user.Password = password;
+        var createdUser = await _userService.RegisterUser(user);
+
+        // Act
+        var loggedIn = await _userService.LoginUser(user.UserName + "1", password);
+
+        // Assert
+        loggedIn.Should().BeNull();
+
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
+    }
+
+    [Fact]
+    public async void Login_WithEmptyUser_Should_Return_False()
+    {
+        // Act
+        var loggedIn = await _userService.LoginUser(string.Empty, "pass");
+        
+        // Assert
+        loggedIn.Should().BeNull();
+    }
+
+    [Fact]
+    public async void Login_WithEmptyPassword_Should_Return_False()
+    {
+        // Act
+        var loggedIn = await _userService.LoginUser("user", string.Empty);
+
+        // Assert
+        loggedIn.Should().BeNull();
+    }
+
+    #endregion
+
+    #region Register Tests
+
+    [Theory, UserAutoData]
+    public async void Register_WithValidUser_Should_Return_True(User user)
+    {
+        // Arrange
+        var createdUser = await _userService.RegisterUser(user);
+
+        // Act
+        var registered = await _userService.IsUsernameExists(user.UserName);
+        
+        // Assert
+        createdUser.Should().NotBeNull().And.BeOfType<User>();
+        registered.Should().BeTrue();
+
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
+    }
+
+    [Theory, UserAutoData]
+    public async void Register_WithInvalidUser_Should_Return_False(User user)
+    {
+        // Arrange
+        var username = "test1";
+        user.UserName = username;
+        var createdUser = await _userService.RegisterUser(user);
+
+        // Assert
+        createdUser.Should().BeNull();
+        
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
+
+        //-------------------------
+
+        // Arrange
+        var email = "test1@gmail.com";
+        user.UserName = "RANDOM USER";
+        user.Email = email;
+        createdUser = await _userService.RegisterUser(user);
+
+        // Assert
+        createdUser.Should().BeNull();
+
+        // Cleanup
+        await _userService.DeleteUser(createdUser, true);
+    }
+
+    [Fact]
+    public async void Register_WithEmptyUser_Should_Return_False()
+    {
+        // Act
+        var registered = await _userService.RegisterUser(new User());
+
+        // Assert
+        registered.Should().BeNull();
+
+        // Cleanup
+        await _userService.DeleteUser(registered, true);
     }
 
     #endregion
