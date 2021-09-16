@@ -55,9 +55,9 @@ namespace BlazorismChat.DbLayer.Migrations
                     IsEmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     IsPhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     RegisterTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
                     Password = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     IdentityCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ActiveCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)

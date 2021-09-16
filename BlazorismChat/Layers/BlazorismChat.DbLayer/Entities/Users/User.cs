@@ -94,19 +94,19 @@ public record User
     #region Personal Information
 
     [Display(Name = "نام", Prompt = "علی")]
-    [Required(ErrorMessage = "{0} نمیتواند خالی باشد")]
+    //[Required(ErrorMessage = "{0} نمیتواند خالی باشد")]
     [MinLength(3, ErrorMessage = "فیلد {0} باید حداقل {1} کاراکتر باشد.")]
     [MaxLength(100, ErrorMessage = "{0} نمیتواند بیش از {1} کاراکتر باشد")]
     public string FirstName { get; set; }
 
     [Display(Name = "نام خانوادگی", Prompt = "محمدی")]
-    [Required(ErrorMessage = "{0} نمیتواند خالی باشد")]
+    //[Required(ErrorMessage = "{0} نمیتواند خالی باشد")]
     [MinLength(3, ErrorMessage = "فیلد {0} باید حداقل {1} کاراکتر باشد.")]
     [MaxLength(100, ErrorMessage = "{0} نمیتواند بیش از {1} کاراکتر باشد")]
     public string LastName { get; set; }
     
     [Display(Name = "شماره همراه", Prompt = "09131234566")]
-    [Required(ErrorMessage = "{0} نمیتواند خالی باشد")]
+    //[Required(ErrorMessage = "{0} نمیتواند خالی باشد")]
     [RegularExpression(@"^09[0-9]{9}$", ErrorMessage = "شماره تلفن وارد شده معتبر نیست")]
     [MaxLength(11, ErrorMessage = "{0} نمیتواند بیش از {1} کاراکتر باشد")]
     public string PhoneNumber { get; set; }

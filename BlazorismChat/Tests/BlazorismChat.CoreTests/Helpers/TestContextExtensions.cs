@@ -14,22 +14,22 @@ public static class TestContextExtensions
 {
     public static TestContext AddBlazorismChatSupport(this TestContext context)
     {
-        context.Services.AddDbContext<BlazorismChatDbContext>(p =>
+        context.Services.AddDbContext<TestDb>(p =>
         {
-#if DEBUG
-            p.UseInMemoryDatabase(NameGenerator.GenerateUniqueCode());
-#else
-            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING__TEST") ?? "";
-            p.UseSqlServer(connectionString);
-#endif
+//#if DEBUG
+//            p.UseInMemoryDatabase(NameGenerator.GenerateUniqueCode());
+//#else
+//            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING__TEST") ?? "";
+            p.UseSqlServer("data source=.; initial catalog=YBlazorismChatTest; user id=sa; password=12345; multipleActiveResultSets=true;");
+//#endif
         });
 
-        context.Services.AddTransient<IUserService, UserService>();
+        //context.Services.AddTransient<IUserService, UserService>();
 
         return context;
     }
 
-    public static void FirstInitDb(this BlazorismChatDbContext db)
+    public static void FirstInitDb(this TestDb db)
     {
         db.Database.EnsureDeleted();
         db.Database.EnsureCreated();

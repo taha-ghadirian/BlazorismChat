@@ -1,4 +1,6 @@
-﻿namespace BlazorismChat.ClientLibraries.Convertors;
+﻿using System;
+
+namespace BlazorismChat.ClientLibraries.Convertors;
 
 public static class NameGenerator
 {

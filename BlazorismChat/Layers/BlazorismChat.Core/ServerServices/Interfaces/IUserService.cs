@@ -1,4 +1,6 @@
-﻿using BlazorismChat.DbLayer.Entities.Users;
+﻿using BlazorismChat.ClientLibraries.DTOs;
+using BlazorismChat.DbLayer.Entities.Users;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlazorismChat.Core.ServerServices.Interfaces;
@@ -21,7 +23,7 @@ public interface IUserService
     Task<bool> UpdateUserPassword(User user, string password);
     Task<bool> UpdateUserPassword(string username, string password);
 
-    Task<User?> RegisterUser(User user);
+    Task<User?> RegisterUser(RegisterDTO registerDTO);
     Task<User?> LoginUser(string username, string password);
 
     Task<List<User>> GetAllUsers();
