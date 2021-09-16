@@ -16,12 +16,12 @@ public static class TestContextExtensions
     {
         context.Services.AddDbContext<TestDb>(p =>
         {
-//#if DEBUG
-//            p.UseInMemoryDatabase(NameGenerator.GenerateUniqueCode());
-//#else
-//            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING__TEST") ?? "";
-            p.UseSqlServer("data source=.; initial catalog=YBlazorismChatTest; user id=sa; password=12345; multipleActiveResultSets=true;");
-//#endif
+#if DEBUG
+        p.UseInMemoryDatabase(NameGenerator.GenerateUniqueCode());
+#else
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING__TEST") ?? "";
+            p.UseSqlServer(connectionString);
+#endif
         });
 
         //context.Services.AddTransient<IUserService, UserService>();
