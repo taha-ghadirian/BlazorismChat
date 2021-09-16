@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BlazorismChat.Server.Controllers;
 [ApiController]
-[Route("api/v1/[controllr]/[action]")]
+[Route("api/v1/[controller]/[action]")]
 public class AccountController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -52,7 +52,7 @@ public class AccountController : ControllerBase
         return Unauthorized();
     }
 
-    [HttpPost("authenticatejwt")]
+    [HttpPost]
     public async Task<ActionResult<AuthenticationResponse>> AuthenticateJWT(AuthenticationRequest authenticationRequest)
     {
         string token = string.Empty;
@@ -69,7 +69,7 @@ public class AccountController : ControllerBase
         return new AuthenticationResponse() { Token = token };
     }
 
-    [HttpPost("getuserbyjwt")]
+    [HttpPost]
     public async Task<ActionResult<User?>?> GetUserByJWT([FromBody] string jwtToken)
     {
         try
@@ -111,4 +111,14 @@ public class AccountController : ControllerBase
         //returning null if token is not validated
         return null;
     }
+
+#if DEBUG
+    [HttpGet]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var x = await _userService.GetAllUsers();
+
+        return Ok(x);
+    }
+#endif
 }

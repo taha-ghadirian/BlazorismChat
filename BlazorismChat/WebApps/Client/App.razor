@@ -2,9 +2,7 @@
 	<Router AppAssembly="@typeof(App).Assembly">
 		<Found Context="routeData">
 			<ErrorBoundary>
-				<AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-					<AuthorizeView RouteData="@routeData" View="@typeof(MainLayout)" />
-				</AuthorizeRouteView>
+				<RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
 				<FocusOnNavigate RouteData="@routeData" Selector="h1" />
 			</ErrorBoundary>
 		</Found>

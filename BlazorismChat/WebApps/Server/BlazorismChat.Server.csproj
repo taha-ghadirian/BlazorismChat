@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Layers\BlazorismChat.Core\BlazorismChat.Core.csproj" />
     <ProjectReference Include="..\..\Layers\BlazorismChat.DbLayer\BlazorismChat.DbLayer.csproj" />
+    <ProjectReference Include="..\Client\BlazorismChat.Client.csproj" />
   </ItemGroup>
 
 

@@ -1,62 +1,84 @@
 @page "/login"
+@inject IUserService userService
+@inject NavigationManager navigationManager
 
 <PageTitle>Login</PageTitle>
 
 @* Add Login.css file to pageheader *@
 <HeadContent>
-    <link rel="stylesheet" type="text/css" href="css/Login.css">
+	<link rel="stylesheet" type="text/css" href="css/Login.css">
 </HeadContent>
 
 <div class="row no-gutters">
-    <div class="col-md-4 border-right right-panel">
-        <div class="description-tray p-2">
-            <h3>Login</h3>
-            <hr>
-        </div>
-        <div class="social-media-tray">
-            <a href="#" class="social-media-item">
-                <img class="round-image" src="/images/github.png" alt="Github Logo">
-                <div class="text">
-                    <h6>Github Login</h6>
-                </div>
-            </a>
-            <hr>
-            <a href="#" class="social-media-item">
-                <img class="round-image" src="/images/telegram.png" alt="Telegram Logo">
-                <div class="text">
-                    <h6>Telegram Login</h6>
-                </div>
-            </a>
-            <hr>
-            <a href="#" class="social-media-item left-bottom-radius">
-                <img class="round-image"
-                    src="https://www.pinclipart.com/picdir/middle/447-4477875_mail-svg-icon-round-gmail-logo-png-clipart.png"
-                    alt="Gmail Logo">
-                <div class="text">
-                    <h6>Gmail Login</h6>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="login-form col-md-8 m-5 mx-auto">
-            <img src="images/login-vector.svg" alt="Login vector" class="img-fluid" height="400" width="400">
-            <hr>
-            <form action="#" method="post">
-                <div class="form-group">
-                    <label for="Username">Username</label>
-                    <input type="text" class="form-control" id="Username" placeholder="Enter Username">
-                </div>
-                <div class="form-group">
-                    <label for="Password">Password</label>
-                    <input type="password" class="form-control" id="Password" placeholder="Enter Password">
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Login" class="btn btn-primary">
-                    <a href="#" class="btn btn-link btn-sm">Forgot Password?</a> |
-                    <button type="button" class="btn btn-link btn-sm" id="RegisterBtn">Create Account</button>
-                </div>
-            </form>
-        </div>
-    </div>
+	<div class="col-md-4 border-right right-panel">
+		<div class="description-tray p-2">
+			<h3>Login</h3>
+			<hr>
+		</div>
+		<div class="social-media-tray">
+			<a href="#" class="social-media-item">
+				<img class="round-image" src="/images/github.png" alt="Github Logo">
+				<div class="text">
+					<h6>Github Login</h6>
+				</div>
+			</a>
+			<hr>
+			<a href="#" class="social-media-item">
+				<img class="round-image" src="/images/telegram.png" alt="Telegram Logo">
+				<div class="text">
+					<h6>Telegram Login</h6>
+				</div>
+			</a>
+			<hr>
+			<a href="#" class="social-media-item left-bottom-radius">
+				<img class="round-image"
+					 src="https://www.pinclipart.com/picdir/middle/447-4477875_mail-svg-icon-round-gmail-logo-png-clipart.png"
+					 alt="Gmail Logo">
+				<div class="text">
+					<h6>Gmail Login</h6>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<div class="login-form col-md-8 m-5 mx-auto">
+			<img src="images/login-vector.svg" alt="Login vector" class="img-fluid" height="400" width="400">
+			<hr>
+			<EditForm Model="@loginDTO" OnValidSubmit="Submit">
+				<DataAnnotationsValidator />
+				<ValidationSummary />
+
+				<div class="form-group">
+					<label for="Username">Username</label>
+					<InputText @bind-Value="loginDTO.UserName" type="text" class="form-control" id="Username" placeholder="Enter Username" />
+				</div>
+				<div class="form-group">
+					<label for="Password">Password</label>
+					<InputText @bind-Value="loginDTO.Password" type="password" class="form-control" id="Password" placeholder="Enter Password" />
+				</div>
+				<div class="form-group">
+					<label for="RememberMe">Remember Me</label>
+					<InputCheckbox @bind-Value="loginDTO.RememberMe" id="RememberMe" class="form-control" />
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Login" class="btn btn-primary">
+					<a href="#" class="btn btn-link btn-sm">Forgot Password?</a> |
+					<button type="button" class="btn btn-link btn-sm" id="RegisterBtn">Create Account</button>
+				</div>
+			</EditForm>
+		</div>
+	</div>
 </div>
+
+@code {
+	private LoginDTO loginDTO = new();
+
+	public async Task Submit()
+	{
+		var resutl = await userService.Login(loginDTO);
+		if (resutl)
+		{
+			navigationManager.NavigateTo("/", true);
+		}
+	}
+}
