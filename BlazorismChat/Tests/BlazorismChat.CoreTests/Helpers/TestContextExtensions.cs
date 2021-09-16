@@ -7,6 +7,7 @@ using BlazorismChat.DbLayer.Entities.Users;
 using Bunit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace BlazorismChat.CoreTests.Helpers;
 
@@ -17,7 +18,7 @@ public static class TestContextExtensions
         context.Services.AddDbContext<TestDb>(p =>
         {
 #if DEBUG
-        p.UseInMemoryDatabase(NameGenerator.GenerateUniqueCode());
+            p.UseInMemoryDatabase(NameGenerator.GenerateUniqueCode());
 #else
             var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING__TEST") ?? "";
             p.UseSqlServer(connectionString);
