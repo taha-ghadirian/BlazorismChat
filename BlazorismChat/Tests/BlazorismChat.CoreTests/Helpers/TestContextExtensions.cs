@@ -7,6 +7,7 @@ using BlazorismChat.DbLayer.Entities.Users;
 using Bunit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace BlazorismChat.CoreTests.Helpers;
 
@@ -14,7 +15,7 @@ public static class TestContextExtensions
 {
     public static TestContext AddBlazorismChatSupport(this TestContext context)
     {
-        context.Services.AddDbContext<BlazorismChatDbContext>(p =>
+        context.Services.AddDbContext<TestDb>(p =>
         {
 #if DEBUG
             p.UseInMemoryDatabase(NameGenerator.GenerateUniqueCode());
@@ -24,12 +25,12 @@ public static class TestContextExtensions
 #endif
         });
 
-        context.Services.AddTransient<IUserService, UserService>();
+        //context.Services.AddTransient<IUserService, UserService>();
 
         return context;
     }
 
-    public static void FirstInitDb(this BlazorismChatDbContext db)
+    public static void FirstInitDb(this TestDb db)
     {
         db.Database.EnsureDeleted();
         db.Database.EnsureCreated();

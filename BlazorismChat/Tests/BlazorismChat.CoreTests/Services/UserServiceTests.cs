@@ -11,6 +11,9 @@ using AutoFixture.Xunit2;
 using AutoFixture;
 using Microsoft.EntityFrameworkCore;
 using BlazorismChat.Core.Security;
+using BlazorismChat.ClientLibraries.DTOs;
+using System.Linq;
+using BlazorismChat.Core.ServerServices;
 
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -21,14 +24,14 @@ namespace BlazorismChat.CoreTests.Services;
 
 public class UserServicesTests : TestContext
 {
-    private readonly BlazorismChatDbContext _dbContext;
+    private readonly TestDb _dbContext;
     private readonly IUserService _userService;
 
     public UserServicesTests()
     {
         this.AddBlazorismChatSupport();
-        _dbContext = Services.GetService(typeof(BlazorismChatDbContext)) as BlazorismChatDbContext;
-        _userService = Services.GetService(typeof(IUserService)) as IUserService;
+        _dbContext = Services.GetService(typeof(TestDb)) as TestDb;
+        _userService = new UserService(_dbContext);
         _dbContext.FirstInitDb();
     }
 
@@ -94,7 +97,7 @@ public class UserServicesTests : TestContext
 
     #endregion
 
-#region Create User Tests
+    #region Create User Tests
 
     [Theory, UserAutoData]
     public async void CreateUser_Should_Return_User(User user)
@@ -142,7 +145,7 @@ public class UserServicesTests : TestContext
         await _userService.DeleteUser(createdUser, true);
     }
 
-#endregion
+    #endregion
 
     #region Update Tests
 
@@ -422,8 +425,8 @@ public class UserServicesTests : TestContext
 
     # region Login Tests
 
-    [Theory, UserAutoData]
-    public async void Login_WithValidUser_Should_Return_True(User user)
+    [Theory, RegisterDTOAutoData]
+    public async void Login_WithValidUser_Should_Return_True(RegisterDTO user)
     {
         // Arrange
         var password = "pass";
@@ -440,8 +443,8 @@ public class UserServicesTests : TestContext
         await _userService.DeleteUser(createdUser, true);
     }
 
-    [Theory, UserAutoData]
-    public async void Login_WithInvalidPassword_Should_Return_False(User user)
+    [Theory, RegisterDTOAutoData]
+    public async void Login_WithInvalidPassword_Should_Return_False(RegisterDTO user)
     {
         // Arrange
         var password = "pass";
@@ -458,8 +461,8 @@ public class UserServicesTests : TestContext
         await _userService.DeleteUser(createdUser, true);
     }
 
-    [Theory, UserAutoData]
-    public async void Login_WithInvalidUserName_Should_Return_False(User user)
+    [Theory, RegisterDTOAutoData]
+    public async void Login_WithInvalidUserName_Should_Return_False(RegisterDTO user)
     {
         // Arrange
         var password = "pass";
@@ -481,7 +484,7 @@ public class UserServicesTests : TestContext
     {
         // Act
         var loggedIn = await _userService.LoginUser(string.Empty, "pass");
-        
+
         // Assert
         loggedIn.Should().BeNull();
     }
@@ -500,15 +503,15 @@ public class UserServicesTests : TestContext
 
     #region Register Tests
 
-    [Theory, UserAutoData]
-    public async void Register_WithValidUser_Should_Return_True(User user)
+    [Theory, RegisterDTOAutoData]
+    public async void Register_WithValidUser_Should_Return_True(RegisterDTO user)
     {
         // Arrange
         var createdUser = await _userService.RegisterUser(user);
 
         // Act
         var registered = await _userService.IsUsernameExists(user.UserName);
-        
+
         // Assert
         createdUser.Should().NotBeNull().And.BeOfType<User>();
         registered.Should().BeTrue();
@@ -517,8 +520,8 @@ public class UserServicesTests : TestContext
         await _userService.DeleteUser(createdUser, true);
     }
 
-    [Theory, UserAutoData]
-    public async void Register_WithInvalidUser_Should_Return_False(User user)
+    [Theory, RegisterDTOAutoData]
+    public async void Register_WithInvalidUser_Should_Return_False(RegisterDTO user)
     {
         // Arrange
         var username = "test1";
@@ -527,7 +530,7 @@ public class UserServicesTests : TestContext
 
         // Assert
         createdUser.Should().BeNull();
-        
+
         // Cleanup
         await _userService.DeleteUser(createdUser, true);
 
@@ -550,7 +553,7 @@ public class UserServicesTests : TestContext
     public async void Register_WithEmptyUser_Should_Return_False()
     {
         // Act
-        var registered = await _userService.RegisterUser(new User());
+        var registered = await _userService.RegisterUser(new RegisterDTO());
 
         // Assert
         registered.Should().BeNull();

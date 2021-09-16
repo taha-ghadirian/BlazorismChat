@@ -1,7 +1,18 @@
-﻿using BlazorismChat.DbLayer.DbContexts;
+﻿using System.Collections.Immutable;
+using BlazorismChat.DbLayer.DbContexts;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-
+using BlazorismChat.Core.ServerServices.Interfaces;
+using BlazorismChat.Core.ServerServices;
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +33,33 @@ builder.Services.AddDbContext<BlazorismChatDbContext>(p =>
 {
     p.UseSqlServer("data source=.; initial catalog=YBlazorismChat; user id=sa; password=12345; multipleActiveResultSets=true;");
 });
+
+builder.Services.AddTransient<IUserService, UserService>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(jwtBearerOptions =>
+{
+    jwtBearerOptions.RequireHttpsMetadata = true;
+    jwtBearerOptions.SaveToken = true;
+    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["JWTSettings:SecretKey"])),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+builder.Services.AddResponseCompression(opts =>
+{
+    opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+        new[] { "application/octet-stream" });
+});
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

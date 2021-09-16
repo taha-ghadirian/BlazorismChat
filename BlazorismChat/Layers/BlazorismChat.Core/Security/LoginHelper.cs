@@ -2,7 +2,14 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BlazzingExam.Core.Server.Security
 {
@@ -34,7 +41,7 @@ namespace BlazzingExam.Core.Server.Security
             {
                 IsPersistent = rememberMe,
             };
-            
+
             await context.SignInAsync(principal, properties);
         }
 
@@ -45,5 +52,33 @@ namespace BlazzingExam.Core.Server.Security
         /// <returns>Logout</returns>
         public static async Task LogoutAsync(this HttpContext context) =>
             await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        public static string GenerateJwtToken(User user, IConfiguration configuration)
+        {
+            //getting the secret key
+            string secretKey = configuration["JWTSettings:SecretKey"];
+            var key = Encoding.ASCII.GetBytes(secretKey);
+
+            //create claims
+            var claimEmail = new Claim(ClaimTypes.Email, user.Email);
+            var claimNameIdentifier = new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString());
+
+            //create claimsIdentity
+            var claimsIdentity = new ClaimsIdentity(new[] { claimEmail, claimNameIdentifier }, "serverAuth");
+
+            // generate token that is valid for 7 days
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = claimsIdentity,
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            //creating a token handler
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            //returning the token back
+            return tokenHandler.WriteToken(token);
+        }
     }
 }

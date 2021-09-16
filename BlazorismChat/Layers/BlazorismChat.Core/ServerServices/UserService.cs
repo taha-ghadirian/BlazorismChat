@@ -4,6 +4,9 @@ using BlazorismChat.DbLayer.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using BlazorismChat.ClientLibraries.Convertors;
 using BlazorismChat.Core.Security;
+using BlazorismChat.ClientLibraries.DTOs;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace BlazorismChat.Core.ServerServices;
 
@@ -22,6 +25,10 @@ public class UserService : IUserService
         {
             if(await IsUsernameExists(user.UserName) || await IsEmailExists(user.Email))
                 return null;
+
+            user.UserId = 0;
+            user.IdentityCode = NameGenerator.GenerateUniqueCode();
+            user.ActiveCode = NameGenerator.GenerateUniqueCode();
 
             var result = await _dbContext.Users.AddAsync(user);
             await _dbContext.SaveChangesAsync();
@@ -115,14 +122,20 @@ public class UserService : IUserService
         return await _dbContext.Users.FirstOrDefaultAsync(x => x.FixedUserName == TextFixer.FixUserName(username) && x.Password == encPass);
     }
 
-    public async Task<User?> RegisterUser(User user)
+    public async Task<User?> RegisterUser(RegisterDTO registerDTO)
     {
         try
         {
-            if (await IsUsernameExists(user.UserName) || await IsEmailExists(user.Email))
+            if (await IsUsernameExists(registerDTO.UserName) || await IsEmailExists(registerDTO.Email))
                 return null;
 
-            user.Password = PasswordHelper.EncodePasswordMd5(user.Password);
+            var user = new User()
+            {
+                UserName = registerDTO.UserName,
+                Email = registerDTO.Email,
+                Password = PasswordHelper.EncodePasswordMd5(registerDTO.Password),
+                IsDeleted = false
+            };
 
 #if DEBUG
             user.IsEmailConfirmed = true;

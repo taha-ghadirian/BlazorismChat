@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace BlazorismChat.DbLayer.Migrations
 {
     [DbContext(typeof(BlazorismChatDbContext))]
@@ -15,16 +17,18 @@ namespace BlazorismChat.DbLayer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "6.0.0-preview.7.21378.4")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("BlazorismChat.DbLayer.Entities.Permissions.Permission", b =>
                 {
                     b.Property<int>("PermissionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PermissionId"), 1L, 1);
 
                     b.Property<int?>("ParentPermissionId")
                         .HasColumnType("int");
@@ -38,7 +42,7 @@ namespace BlazorismChat.DbLayer.Migrations
 
                     b.HasIndex("ParentPermissionId");
 
-                    b.ToTable("Permissions");
+                    b.ToTable("Permissions", (string)null);
 
                     b.HasData(
                         new
@@ -136,8 +140,9 @@ namespace BlazorismChat.DbLayer.Migrations
                 {
                     b.Property<int>("RolePermissionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RolePermissionId"), 1L, 1);
 
                     b.Property<int>("PermissionId")
                         .HasColumnType("int");
@@ -151,15 +156,16 @@ namespace BlazorismChat.DbLayer.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RolePermissions");
+                    b.ToTable("RolePermissions", (string)null);
                 });
 
             modelBuilder.Entity("BlazorismChat.DbLayer.Entities.Users.Role", b =>
                 {
                     b.Property<int>("RoleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"), 1L, 1);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -171,15 +177,16 @@ namespace BlazorismChat.DbLayer.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("BlazorismChat.DbLayer.Entities.Users.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
                     b.Property<string>("ActiveCode")
                         .IsRequired()
@@ -192,7 +199,6 @@ namespace BlazorismChat.DbLayer.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -220,7 +226,6 @@ namespace BlazorismChat.DbLayer.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -230,7 +235,6 @@ namespace BlazorismChat.DbLayer.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
@@ -244,15 +248,16 @@ namespace BlazorismChat.DbLayer.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("BlazorismChat.DbLayer.Entities.Users.UserRole", b =>
                 {
                     b.Property<int>("UserRoleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleId"), 1L, 1);
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
@@ -266,7 +271,7 @@ namespace BlazorismChat.DbLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("BlazorismChat.DbLayer.Entities.Permissions.Permission", b =>
