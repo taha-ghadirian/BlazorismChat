@@ -7,26 +7,30 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace BlazorismChat.DbLayer.Migrations
 {
     [DbContext(typeof(BlazorismChatDbContext))]
-    [Migration("20210910094603_FirstMigration")]
+    [Migration("20210916123058_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "6.0.0-preview.7.21378.4")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.0-rc.1.21452.10")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("BlazorismChat.DbLayer.Entities.Permissions.Permission", b =>
                 {
                     b.Property<int>("PermissionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PermissionId"), 1L, 1);
 
                     b.Property<int?>("ParentPermissionId")
                         .HasColumnType("int");
@@ -138,8 +142,9 @@ namespace BlazorismChat.DbLayer.Migrations
                 {
                     b.Property<int>("RolePermissionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RolePermissionId"), 1L, 1);
 
                     b.Property<int>("PermissionId")
                         .HasColumnType("int");
@@ -160,8 +165,9 @@ namespace BlazorismChat.DbLayer.Migrations
                 {
                     b.Property<int>("RoleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"), 1L, 1);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -180,8 +186,9 @@ namespace BlazorismChat.DbLayer.Migrations
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
                     b.Property<string>("ActiveCode")
                         .IsRequired()
@@ -194,7 +201,6 @@ namespace BlazorismChat.DbLayer.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -222,7 +228,6 @@ namespace BlazorismChat.DbLayer.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -232,7 +237,6 @@ namespace BlazorismChat.DbLayer.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
@@ -253,8 +257,9 @@ namespace BlazorismChat.DbLayer.Migrations
                 {
                     b.Property<int>("UserRoleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleId"), 1L, 1);
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");

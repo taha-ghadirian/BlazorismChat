@@ -6,11 +6,6 @@ namespace BlazorismChat.DbLayer.DbContexts;
 
 public class BlazorismChatDbContext : DbContext
 {
-    public BlazorismChatDbContext(DbContextOptions<BlazorismChatDbContext> options) : base(options)
-    {
-
-    }
-
     public BlazorismChatDbContext(DbContextOptions options) : base(options)
     {
     }

@@ -17,7 +17,7 @@ namespace BlazorismChat.DbLayer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0-preview.7.21378.4")
+                .HasAnnotation("ProductVersion", "6.0.0-rc.1.21452.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -42,7 +42,7 @@ namespace BlazorismChat.DbLayer.Migrations
 
                     b.HasIndex("ParentPermissionId");
 
-                    b.ToTable("Permissions", (string)null);
+                    b.ToTable("Permissions");
 
                     b.HasData(
                         new
@@ -156,7 +156,7 @@ namespace BlazorismChat.DbLayer.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RolePermissions", (string)null);
+                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("BlazorismChat.DbLayer.Entities.Users.Role", b =>
@@ -177,7 +177,7 @@ namespace BlazorismChat.DbLayer.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("BlazorismChat.DbLayer.Entities.Users.User", b =>
@@ -248,7 +248,7 @@ namespace BlazorismChat.DbLayer.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BlazorismChat.DbLayer.Entities.Users.UserRole", b =>
@@ -271,7 +271,7 @@ namespace BlazorismChat.DbLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("BlazorismChat.DbLayer.Entities.Permissions.Permission", b =>

@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace BlazorismChat.DbLayer.Migrations
 {
     public partial class FirstMigration : Migration
@@ -23,8 +25,7 @@ namespace BlazorismChat.DbLayer.Migrations
                         name: "FK_Permissions_Permissions_ParentPermissionId",
                         column: x => x.ParentPermissionId,
                         principalTable: "Permissions",
-                        principalColumn: "PermissionId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "PermissionId");
                 });
 
             migrationBuilder.CreateTable(
